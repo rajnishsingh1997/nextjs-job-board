@@ -1,4 +1,5 @@
 import JobList from "@/components/ui/JobList";
+import JobSidebar from "@/components/ui/JobSidebar";
 import prisma from "@/lib/prisma";
 
 export default async function Home() {
@@ -13,9 +14,9 @@ export default async function Home() {
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">Developer jobs</h1>
         <p className="text-muted-foreground">Find your dream jobs</p>
       </div>
-      <section>
-
-        <div className="space-y-4">
+      <section className="flex flex-col md:flex-row gap-4">
+        <JobSidebar />
+        <div className="space-y-4 grow">
 
           {
             data.map((job) => {
