@@ -5,12 +5,13 @@ import Select from '@/components/ui/select'
 import prisma from '@/lib/prisma'
 import { jobType } from '@/lib/job-Type'
 import { Button } from './button'
+import { jobFilterSchema } from '@/lib/validation'
 export default async function JobSidebar() {
 
     async function filterjobs(formData: FormData) {
-
         'use server'
-
+        const values = Object.fromEntries(formData.entries());
+        const { jobName, type, location, remote } = jobFilterSchema.parse(values);
     }
 
     const JobLocation = await prisma.job.findMany({
