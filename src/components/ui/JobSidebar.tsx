@@ -3,7 +3,8 @@ import { Label } from './label'
 import { Input } from './input'
 import Select from '@/components/ui/select'
 import prisma from '@/lib/prisma'
-
+import { jobType } from '@/lib/job-Type'
+import { Button } from './button'
 export default async function JobSidebar() {
 
     async function filterjobs(formData: FormData) {
@@ -37,11 +38,23 @@ export default async function JobSidebar() {
                         </Label>
                         <Input id='jobName' name='jobName' placeholder='Title , Company , etc' />
                     </div>
+                    <div>
+                        <Label htmlFor='type'></Label>
+                        <Select id='type' name='type' defaultValue=''>
+                            <option value="">All Types</option>
+                            {
+                                jobType.map((type) => {
+                                    return <option key={type} value={type || ""}>{type}</option>
+                                })
+                            }
+                        </Select>
+
+                    </div>
                     <div className='flex flex-col gap-2'>
                         <Label htmlFor='location'>
                             location
                         </Label>
-                        <Select id='location' name='location' value="">
+                        <Select id='location' name='location' defaultValue="">
                             <option value="">All location</option>
                             {
                                 location.map((location) => {
@@ -51,6 +64,16 @@ export default async function JobSidebar() {
                         </Select>
 
                     </div>
+                    <div className='flex items-center gap-2'>
+                        <input
+                            id='remote'
+                            name='remote'
+                            type='checkbox'
+                            className='scale-125 accent-black' />
+                        <Label htmlFor='remote'>Remote Job</Label>
+
+                    </div>
+                    <Button type='submit' className='w-full'> Filter Jobs</Button>
                 </div>
 
             </form>
