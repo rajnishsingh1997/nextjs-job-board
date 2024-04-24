@@ -12,7 +12,7 @@ export default function Navbar() {
                     <span className="text-xl font-bold tracking-tight">Flows jobs</span>
                 </Link>
                 <Button asChild>
-                    <Link href='job/new'>Post a job</Link>
+                    <Link href='job/new'>Post a ob</Link>
                 </Button>
             </nav>
         </header>
