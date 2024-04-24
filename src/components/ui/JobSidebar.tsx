@@ -6,12 +6,22 @@ import prisma from '@/lib/prisma'
 import { jobType } from '@/lib/job-Type'
 import { Button } from './button'
 import { jobFilterSchema } from '@/lib/validation'
+import { redirect } from 'next/navigation'
 export default async function JobSidebar() {
 
     async function filterjobs(formData: FormData) {
         'use server'
         const values = Object.fromEntries(formData.entries());
         const { jobName, type, location, remote } = jobFilterSchema.parse(values);
+
+        const searchParams = new URLSearchParams({
+            ...(jobName && { jobName: jobName.trim() }),
+            ...(type && { type: type }),
+            ...(location && { location: location }),
+            ...(remote && { remote: 'true' })
+        })
+
+        redirect(`/?${searchParams.toString()}`)
     }
 
     const JobLocation = await prisma.job.findMany({
@@ -40,7 +50,7 @@ export default async function JobSidebar() {
                         <Input id='jobName' name='jobName' placeholder='Title , Company , etc' />
                     </div>
                     <div>
-                        <Label htmlFor='type'></Label>
+                        <Label htmlFor='type'>Locations</Label>
                         <Select id='type' name='type' defaultValue=''>
                             <option value="">All Types</option>
                             {
