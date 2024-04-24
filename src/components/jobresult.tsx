@@ -46,6 +46,12 @@ export default async function JobResult({ filterValues: { jobName, type, locatio
             {data.map((job) => {
                 return <JobList job={job} key={job.id} />;
             })}
+
+            {
+                data?.length === 0 && <div className="mx-auto text-center">
+                    <p>No jobs Found. Try adjusting your Filter</p>
+                </div>
+            }
         </div>
     );
 }
