@@ -1,11 +1,28 @@
 import JobResult from "@/components/jobresult";
 import H1 from "@/components/ui/H1";
-
 import JobSidebar from "@/components/ui/JobSidebar";
+import { jobFilterValue } from "@/lib/validation";
 
+interface PageProps {
+  searchParams: {
+    jobName?: string,
+    type?: string,
+    location?: string,
+    remote?: string
 
-export default async function Home() {
+  }
+}
 
+export default async function Home({
+  searchParams: { jobName, type, location, remote }
+}: PageProps) {
+
+  const filtervalue: jobFilterValue = {
+    jobName,
+    type,
+    location,
+    remote: remote === 'true'
+  }
 
   return (
     <main className="max-w-5xl m-auto px-5 my-10 space-y-10">
@@ -15,7 +32,7 @@ export default async function Home() {
       </div>
       <section className="flex flex-col md:flex-row gap-4">
         <JobSidebar />
-        <JobResult />
+        <JobResult filterValues={filtervalue} />
       </section>
     </main>
   );
