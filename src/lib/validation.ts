@@ -4,11 +4,11 @@ import { jobType, locationType } from "./job-Type";
 
 const requiredString =  z.string().min(1 ,'Required');
 
-const companyLogoFile = z.custom<File|undefined>().refine(file=>{
-   return !file || (file instanceof File && file.type.startsWith('image/'))
-},"Must be an image file").refine(file=>{
-    return !file || file.size <1024*1024*2
-} , 'File must be less than 2MB')
+const companyLogoFile = z.custom<File|undefined>().refine(file=>(
+    !file || (file instanceof File && file.type.startsWith('image/'))
+),"Must be an image file").refine(file=>(
+     !file || file.size <1024*1024*2
+ ) , 'File must be less than 2MB')
 
 const numberRequiredString = requiredString.regex(/^\d+$/ , 'Must be a Number')
 
