@@ -2,7 +2,7 @@ import { z } from "zod";
 import { jobType, locationType } from "./job-Type";
 
 
-const requiredString =  z.string().min(1 ,'Required');
+const requiredString =  z.string().min(1 ,'Required').trim();
 
 const companyLogoFile = z.custom<File|undefined>().refine(file=>(
     !file || (file instanceof File && file.type.startsWith('image/'))
