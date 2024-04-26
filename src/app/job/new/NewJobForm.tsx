@@ -13,6 +13,7 @@ import { X } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import RichTextEditor from "@/components/RichTextEditor"
 import LoadingButton from "@/components/ui/LoadingButton"
+import { createJobPosting } from "./action"
 
 
 export default function NewJobForm() {
@@ -21,7 +22,21 @@ export default function NewJobForm() {
     })
 
     async function onSubmit(values: CreateJobValues) {
-        alert(JSON.stringify(values, null, 2))
+        const formData = new FormData();
+        Object.entries(values).forEach(([key, value]) => {
+            if (value) {
+                formData.append(key, value)
+            }
+        })
+
+        try {
+            await createJobPosting(formData);
+
+
+        } catch {
+            alert("Something went wrong , please try again!")
+
+        }
 
     }
 
@@ -91,7 +106,7 @@ export default function NewJobForm() {
 
                         )} />
 
-                        <FormField control={control} name="companyLogoUrl" render={({ field: { value, ...fieldValue } }) => (
+                        <FormField control={control} name="companyLogo" render={({ field: { value, ...fieldValue } }) => (
                             <FormItem>
                                 <FormLabel>Company logo</FormLabel>
                                 <FormControl>
@@ -238,7 +253,7 @@ export default function NewJobForm() {
                                 </FormItem>
                             )}
                         />
-                        <LoadingButton type="submit" loading={isSubmitting}>
+                        <LoadingButton type="submit" loading={isSubmitting} >
                             Submit
                         </LoadingButton>
 

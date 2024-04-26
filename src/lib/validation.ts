@@ -43,7 +43,7 @@ export const createJobSchema = z.object({
         "Invalid Job type"
      ),
      companyName:requiredString.max(100),
-     companyLogoUrl:companyLogoFile,
+     companyLogo:companyLogoFile,
      description:z.string().max(5000).optional(),
      salary:numberRequiredString.max(9 ,"Number can't be longer than 9 Digit"), 
 

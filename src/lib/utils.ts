@@ -17,3 +17,8 @@ export function formatMoney(amount: number) {
 export function relativeDate(from: Date) {
   return formatDistanceToNowStrict(from, { addSuffix: true });
 }
+
+export function toSlug(str:String){
+  return str.toLowerCase().replace(/ /g ,'-').replace(/[^\w-]+/g ,"")
+}
+
