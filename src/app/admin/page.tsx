@@ -8,9 +8,6 @@ import { currentUser } from "@clerk/nextjs";
 export default async function AdminPage() {
 
     const user = await currentUser();
-
-    console.log(user)
-
     const unapprovedJobs = await prisma.job.findMany({
         where: { approved: false },
     });
