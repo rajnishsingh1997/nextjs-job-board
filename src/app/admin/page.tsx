@@ -3,8 +3,14 @@ import JobListItem from "@/components/ui/JobList";
 import H1 from "@/components/ui/H1";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
+import { currentUser } from "@clerk/nextjs";
 
 export default async function AdminPage() {
+
+    const user = await currentUser();
+
+    console.log(user)
+
     const unapprovedJobs = await prisma.job.findMany({
         where: { approved: false },
     });
